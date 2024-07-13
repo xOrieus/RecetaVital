@@ -8,13 +8,16 @@
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 			rel="stylesheet"
 		/>
+		<link href="styles/style.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container">
             <div class="text-left my-3">
                 <img src="img/logorecetavital.png" width="130"></img>
+				<a href="index.html" class="btn btn-danger float-end" role="button">Cerrar Sesión</a>
+				<h4 class="float-end px-3">¡Hola Médico!</h4>
                 </div>
-			<h1 class="my-5">Médico</h1>
+			<!--<h1 class="my-5">Médico</h1>-->
 			<div class="row">
 				<div class="col-md-4">
 					<button
@@ -29,7 +32,7 @@
 							class="btn btn-secondary w-100 mb-2"
 							onclick="showSection('addPaciente')"
 						>
-							Añadir Paciente
+							Ingresar Paciente
 						</button>
 						<button
 							class="btn btn-secondary w-100 mb-2"
@@ -60,12 +63,7 @@
 						>
 							Listar Citas
 						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('ingresarAnamnesis')"
-						>
-							Ingresar Anamnesis
-						</button>
+
 						<button
 							class="btn btn-secondary w-100 mb-2"
 							onclick="showSection('cancelarCita')"
@@ -95,12 +93,8 @@
 						>
 							Modificar Exámen
 						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('ingresarExamen')"
-						>
-							Ingresar Exámen
-						</button>
+					
+						<button class="btn btn-secondary w-100 mb-2" onclick="showSection('eliminarExamen')">Eliminar Exámen</button>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -127,12 +121,20 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<button
-						class="btn btn-primary w-100 mb-3"
-						onclick="showSection('mostrarFichaMedica')"
+					<button class="btn btn-primary w-100 mb-3" onclick="showSection('mostrarFichaMedica')">Mostrar Ficha Médica</button>
+				</div>
+				<div class="col-md-4">
+					<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse" data-bs-target="#diagnosticoMenu">Diagnostico</button>
+					<div id="diagnosticoMenu" class="collapse">
+						<button
+						class="btn btn-secondary w-100 mb-2"
+						onclick="showSection('ingresarDiagnostico')"
 					>
-						Mostrar Ficha Médica
+						Ingresar Diagnostico
 					</button>
+						<button class="btn btn-secondary w-100 mb-2" onclick="showSection('modificarDiagnostico')">Modificar Diagnostico</button>
+						<button class="btn btn-secondary w-100 mb-2" onclick="showSection('eliminarDiagnostico')">Eliminar Diagnostico</button>
+					</div>
 				</div>
 			</div>
 			<div class="mt-5">
@@ -288,27 +290,27 @@
 				<div id="listCitas" class="section d-none">
 					<h2>Listar Citas</h2>
 					<ul id="listaCitas" class="list-group">
-						<!-- Lista de citas con opciones para ingresar anamnesis y cancelar cita -->
+						<!-- Lista de citas con opciones para ingresar diagnostico-->
 					</ul>
 				</div>
-				<div id="ingresarAnamnesis" class="section d-none">
-					<h2>Ingresar Anamnesis</h2>
-					<form id="ingresarAnamnesisForm">
+				<div id="ingresarDiagnostico" class="section d-none">
+					<h2>Ingresar Diagnostico</h2>
+					<form id="ingresarDiagnosticoForm">
 						<div class="mb-3">
-							<label for="anamnesisPaciente" class="form-label"
+							<label for="diagnosticoPaciente" class="form-label"
 								>Seleccionar Paciente</label
 							>
-							<select class="form-select" id="anamnesisPaciente" required>
+							<select class="form-select" id="diagnosticoPaciente" required>
 								<!-- Lista de pacientes -->
 							</select>
 						</div>
 						<div class="mb-3">
-							<label for="anamnesisDiagnostico" class="form-label"
+							<label for="ingresarDiagnostico" class="form-label"
 								>Diagnóstico</label
 							>
 							<textarea
 								class="form-control"
-								id="anamnesisDiagnostico"
+								id="ingresardiagnostico"
 								required
 							></textarea>
 						</div>
@@ -415,25 +417,11 @@
 						</div>
 					</form>
 				</div>
-				<div id="ingresarExamen" class="section d-none">
-					<h2>Ingresar Exámen</h2>
-					<form id="ingresarExamenForm">
-						<div class="mb-3">
-							<label for="examenArchivo" class="form-label"
-								>Archivo del exámen</label
-							>
-							<input
-								type="file"
-								class="form-control"
-								id="examenArchivo"
-								accept=".pdf,.jpg"
-								required
-							/>
-						</div>
-						<div class="d-grid">
-							<button type="submit" class="btn btn-primary">Subir</button>
-						</div>
-					</form>
+				<div id="eliminarExamen" class="section d-none">
+					<h2>Eliminar Exámen</h2>
+					<ul id="listaExamenesEliminar" class="list-group">
+						<!-- Lista de exámenes con opción para eliminar -->
+					</ul>
 				</div>
 				<div id="ingresarTratamiento" class="section d-none">
 					<h2>Ingresar Tratamiento</h2>
@@ -503,6 +491,30 @@
 						</ul>
 					</div>
 				</div>
+				<div id="modificarDiagnostico" class="section d-none">
+                <h2>Modificar Diagnóstico</h2>
+                <form id="modifyDiagnosticoForm">
+                    <div class="mb-3">
+                        <label for="selectDiagnosticoModificar" class="form-label">Seleccionar Diagnóstico</label>
+                        <select class="form-select" id="selectDiagnosticoModificar" required>
+                            <!-- Lista de diagnósticos para seleccionar -->
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="diagnosticoTextoModificar" class="form-label">Diagnóstico</label>
+                        <textarea class="form-control" id="diagnosticoTextoModificar" required></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Modificar</button>
+                    </div>
+                </form>
+            </div>
+            <div id="eliminarDiagnostico" class="section d-none">
+                <h2>Eliminar Diagnóstico</h2>
+                <ul id="listaDiagnosticosEliminar" class="list-group">
+                    <!-- Lista de diagnósticos con opción para eliminar -->
+                </ul>
+            </div>
 			</div>
 		</div>
 		<script>

@@ -1,0 +1,26 @@
+body {
+	background-color: #8ECCE7; /* Color de fondo celeste suave */
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	padding: 20px;
+}
+
+h1,
+h2,
+h4 {
+	color: #3857A6;
+}
+
+.btn-primary {
+	background-color: #3857A6;
+	border-color: #3857A6;
+}
+
+.btn-primary:hover {
+	background-color: #2e4788;
+	border-color: #2e4788;
+}

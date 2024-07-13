@@ -437,6 +437,44 @@ function listarCitasCancelar() {
 	});
 }
 
+// Funciones para Modificar y Eliminar Diagnóstico
+document.getElementById('modifyDiagnosticoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const id = document.getElementById('selectDiagnosticoModificar').value;
+    const anamnesis = encontrarPorId('anamnesis', id);
+    if (anamnesis) {
+        anamnesis.diagnostico = document.getElementById('diagnosticoTextoModificar').value;
+        const anamnesisList = obtenerDeLocalStorage('anamnesis');
+        const indice = anamnesisList.findIndex(a => a.id === id);
+        anamnesisList[indice] = anamnesis;
+        guardarEnLocalStorage('anamnesis', anamnesisList);
+        alert('Diagnóstico modificado correctamente');
+    } else {
+        alert('Error: Diagnóstico no encontrado');
+    }
+});
+
+function listarDiagnosticosEliminar() {
+    const anamnesisList = obtenerDeLocalStorage('anamnesis');
+    const lista = document.getElementById('listaDiagnosticosEliminar');
+    lista.innerHTML = '';
+    anamnesisList.forEach(anamnesis => {
+        const item = document.createElement('li');
+        item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+        item.textContent = `${anamnesis.diagnostico}`;
+        const botonEliminar = document.createElement('button');
+        botonEliminar.classList.add('btn', 'btn-danger');
+        botonEliminar.textContent = 'Eliminar';
+        botonEliminar.addEventListener('click', function() {
+            eliminarDeLocalStorage('anamnesis', anamnesis.id);
+            alert('Diagnóstico eliminado correctamente');
+            listarDiagnosticosEliminar();
+        });
+        item.appendChild(botonEliminar);
+        lista.appendChild(item);
+    });
+}
+
 // Mostrar Ficha Médica
 document
 	.getElementById("mostrarFichaMedicaForm")

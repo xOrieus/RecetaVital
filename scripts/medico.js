@@ -241,6 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	actualizarSelectsPacientes();
 	listarPacientesEliminar();
 	listarCitas();
+	cancelarlistarCitas()
 	listarTratamientosCancelar();
 	listarExamenesEliminar();
 	listarDiagnosticosEliminar();
@@ -282,11 +283,49 @@ function listarCitas() {
 			alert("Cita cancelada correctamente");
 			listarCitas();
 		});
-		item.appendChild(botonDiagnostico);
+		/*item.appendChild(botonDiagnostico);*/
+		/*item.appendChild(botonCancelarCita);*/
+		lista.appendChild(item);
+	});
+}
+
+function cancelarlistarCitas() {
+	const citas = obtenerDeLocalStorage("citas");
+	const lista = document.getElementById("listaCitasCancelar");
+	lista.innerHTML = "";
+	citas.forEach((cita) => {
+		const item = document.createElement("li");
+		item.classList.add(
+			"list-group-item",
+			"d-flex",
+			"justify-content-between",
+			"align-items-center"
+		);
+		item.textContent = `Médico: ${cita.medicoId}, Fecha: ${cita.fecha}, Hora: ${cita.hora}`;
+		const botonDiagnostico = document.createElement("button");
+		/*botonDiagnostico.classList.add("btn", "btn-success");
+		botonDiagnostico.textContent = "Ingresar Paciente";
+		botonDiagnostico.addEventListener("click", function () {
+			document.getElementById("diagnosticoPaciente").value = cita.pacienteId;
+			new bootstrap.Modal(
+				document.getElementById("ingresarDiagnosticoModal")
+			).show();
+		});*/
+		const botonCancelarCita = document.createElement("button");
+		botonCancelarCita.classList.add("btn", "btn-danger");
+		botonCancelarCita.textContent = "Cancelar Cita";
+		botonCancelarCita.addEventListener("click", function () {
+			eliminarDeLocalStorage("citas", cita.id);
+			alert("Cita cancelada correctamente");
+			listarCitas();
+		});
+		/*item.appendChild(botonDiagnostico);*/
 		item.appendChild(botonCancelarCita);
 		lista.appendChild(item);
 	});
 }
+
+
 
 document
 	.getElementById("ingresarDiagnosticoForm")

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Médico - Receta Vital</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="styles/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="text-left my-3">
+			<img src="img/logorecetavital.png" width="130"></img>
+			<a href="index.html" class="btn btn-danger float-end" role="button">Cerrar Sesión</a>
+			<h4 class="float-end px-3">¡Hola Médico!</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse"
+					data-bs-target="#pacientesMenu">PACIENTES</button>
+				<div id="pacientesMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#addPacienteModal">Ingresar Paciente</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#modifyPacienteModal">Modificar Paciente</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#deletePacienteModal">Eliminar Paciente</button>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse"
+					data-bs-target="#citasMenu">CITAS</button>
+				<div id="citasMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#listCitasModal">Listar Citas</button>
+
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse"
+					data-bs-target="#examenesMenu">EXÁMENES</button>
+				<div id="examenesMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#recetarExamenModal">Recetar Exámen</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#modifyExamenModal">Modificar Exámen</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#eliminarExamenModal">Eliminar Exámen</button>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse"
+					data-bs-target="#tratamientoMenu">TRATAMIENTO</button>
+				<div id="tratamientoMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#ingresarTratamientoModal">Ingresar Tratamiento</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#cancelarTratamientoModal">Cancelar Tratamiento</button>
+						<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#cancelarTratamientoModal">Listar Medicamentos</button>
+				</div>
+			</div>
+
+
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse"
+					data-bs-target="#diagnosticoMenu">DIAGNÓSTICO</button>
+				<div id="diagnosticoMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#ingresarDiagnosticoModal">Ingresar Diagnóstico</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#modificarDiagnosticoModal">Modificar Diagnóstico</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#eliminarDiagnosticoModal">Eliminar Diagnóstico</button>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="modal"
+					data-bs-target="#mostrarFichaMedicaModal">MOSTRAR FICHA MÉDICA</button>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="modal fade" id="addPacienteModal" tabindex="-1" aria-labelledby="addPacienteModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addPacienteModalLabel">Ingresar Paciente</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="addPacienteForm">
+						<div class="mb-3">
+							<label for="pacienteRut" class="form-label">RUT</label>
+							<input type="text" class="form-control" id="pacienteRut" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteNombre" class="form-label">Nombre</label>
+							<input type="text" class="form-control" id="pacienteNombre" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteApellido" class="form-label">Apellido</label>
+							<input type="text" class="form-control" id="pacienteApellido" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteFechaNacimiento" class="form-label">Fecha de nacimiento</label>
+							<input type="date" class="form-control" id="pacienteFechaNacimiento" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="pacienteTelefono" class="form-label">Teléfono</label>
+							<input type="text" class="form-control" id="pacienteTelefono" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteGenero" class="form-label">Género</label>
+							<select class="form-select" id="pacienteGenero" required>
+								<option value="male">Masculino</option>
+								<option value="female">Femenino</option>
+								<option value="other">Otro</option>
+							</select>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modifyPacienteModal" tabindex="-1" aria-labelledby="modifyPacienteModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modifyPacienteModalLabel">Modificar Paciente</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="modifyPacienteForm">
+						<div class="mb-3">
+							<label for="selectPacienteModificar" class="form-label">Seleccionar Paciente</label>
+							<select class="form-select" id="selectPacienteModificar" required>
+								<!-- Lista de pacientes para seleccionar -->
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteRutModificar" class="form-label">RUT</label>
+							<input type="text" class="form-control" id="pacienteRutModificar" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteNombreModificar" class="form-label">Nombre</label>
+							<input type="text" class="form-control" id="pacienteNombreModificar" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteApellidoModificar" class="form-label">Apellido</label>
+							<input type="text" class="form-control" id="pacienteApellidoModificar" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteFechaNacimientoModificar" class="form-label">Fecha de nacimiento</label>
+							<input type="date" class="form-control" id="pacienteFechaNacimientoModificar" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteTelefonoModificar" class="form-label">Teléfono</label>
+							<input type="text" class="form-control" id="pacienteTelefonoModificar" required>
+						</div>
+						<div class="mb-3">
+							<label for="pacienteGeneroModificar" class="form-label">Género</label>
+							<select class="form-select" id="pacienteGeneroModificar" required>
+								<option value="male">Masculino</option>
+								<option value="female">Femenino</option>
+								<option value="other">Otro</option>
+							</select>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Modificar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deletePacienteModal" tabindex="-1" aria-labelledby="deletePacienteModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deletePacienteModalLabel">Eliminar Paciente</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul id="listaPacientesEliminar" class="list-group">
+						<!-- Lista de pacientes con botón de eliminar -->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="listCitasModal" tabindex="-1" aria-labelledby="listCitasModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="listCitasModalLabel">Listar Citas</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul id="listaCitas" class="list-group">
+						<!-- Lista de citas con opciones para ingresar anamnesis y cancelar cita -->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="ingresarDiagnostico" class="section d-none">
+		<h2>Ingresar Diagnóstico</h2>
+		<form id="ingresarDiagnosticoForm">
+			<div class="mb-3">
+				<label for="diagnosticoPaciente" class="form-label">Seleccionar Paciente</label>
+				<select class="form-select" id="diagnosticoPaciente" required>
+					<!-- Lista de pacientes -->
+				</select>
+			</div>
+			<div class="mb-3">
+				<label for="ingresarDiagnostico" class="form-label">Diagnóstico</label>
+				<textarea class="form-control" id="ingresardiagnostico" required></textarea>
+			</div>
+			<div class="d-grid">
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="modal fade" id="cancelarCitaModal" tabindex="-1" aria-labelledby="cancelarCitaModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cancelarCitaModalLabel">Cancelar Cita</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul id="listaCitasCancelar" class="list-group">
+						<!-- Lista de citas con opción para cancelar -->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="recetarExamenModal" tabindex="-1" aria-labelledby="recetarExamenModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="recetarExamenModalLabel">Recetar Exámen</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="recetarExamenForm">
+						<div class="mb-3">
+							<label for="examenPaciente" class="form-label">Paciente</label>
+							<select class="form-select" id="examenPaciente" required>
+								<!-- Opciones de pacientes -->
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="examenNombre" class="form-label">Nombre del exámen</label>
+							<input type="text" class="form-control" id="examenNombre" required>
+						</div>
+						<div class="mb-3">
+							<label for="examenProcedimiento" class="form-label">Procedimiento</label>
+							<textarea class="form-control" id="examenProcedimiento" required></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="examenPreparacion" class="form-label">Preparación previa</label>
+							<textarea class="form-control" id="examenPreparacion" required></textarea>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modifyExamenModal" tabindex="-1" aria-labelledby="modifyExamenModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modifyExamenModalLabel">Modificar Exámen</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="modifyExamenForm">
+						<div class="mb-3">
+							<label for="selectExamenModificar" class="form-label">Seleccionar Exámen</label>
+							<select class="form-select" id="selectExamenModificar" required>
+								<!-- Lista de exámenes para seleccionar -->
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="examenNombreModificar" class="form-label">Nombre del exámen</label>
+							<input type="text" class="form-control" id="examenNombreModificar" required>
+						</div>
+						<div class="mb-3">
+							<label for="examenProcedimientoModificar" class="form-label">Procedimiento</label>
+							<textarea class="form-control" id="examenProcedimientoModificar" required></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="examenPreparacionModificar" class="form-label">Preparación previa</label>
+							<textarea class="form-control" id="examenPreparacionModificar" required></textarea>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Modificar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="eliminarExamenModal" tabindex="-1" aria-labelledby="eliminarExamenModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="eliminarExamenModalLabel">Eliminar Exámen</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul id="listaExamenesEliminar" class="list-group">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="ingresarTratamientoModal" tabindex="-1" aria-labelledby="ingresarTratamientoModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ingresarTratamientoModalLabel">Ingresar Tratamiento</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="ingresarTratamientoForm">
+						<div class="mb-3">
+							<label for="tratamientoPaciente" class="form-label">Paciente</label>
+							<select class="form-select" id="tratamientoPaciente" required>
+								<!-- Opciones de pacientes -->
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="tratamientoInstrucciones" class="form-label">Instrucciones del
+								tratamiento</label>
+							<textarea class="form-control" id="tratamientoInstrucciones" required></textarea>
+						</div>
+						<div class="mb-3">
+							<hr>
+							<p>Receta Médica</p>
+							<label for="tratamientoReceta" class="form-label">Medicamento</label>
+							<select class="form-select" id="tratamientoReceta">
+								<!-- Opciones de medicamentos -->
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="tratamientoDosis" class="form-label">Dosis</label>
+							<textarea class="form-control" id="tratamientoDosis" required></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="tratamientoNotas" class="form-label">Notas</label>
+							<textarea class="form-control" id="tratamientoNotas"></textarea>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="cancelarTratamientoModal" tabindex="-1" aria-labelledby="cancelarTratamientoModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cancelarTratamientoModalLabel">Cancelar Tratamiento</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul id="listaTratamientosCancelar" class="list-group">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" id="mostrarFichaMedicaModal" tabindex="-1" aria-labelledby="fichaMedicaModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="fichaMedicaModalLabel">Ficha Médica</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="selectPacienteFicha" class="form-label">Seleccionar Paciente</label>
+						<select id="selectPacienteFicha" class="form-select"></select>
+					</div>
+					<div id="fichaMedicaDetalles" class="d-none">
+						<h5>Diagnósticos</h5>
+						<ul id="listaDiagnosticosFicha" class="list-group"></ul>
+						<h5>Tratamientos</h5>
+						<ul id="listaTratamientosFicha" class="list-group"></ul>
+						<h5>Exámenes</h5>
+						<ul id="listaExamenesFicha" class="list-group"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="ingresarDiagnosticoModal" tabindex="-1" aria-labelledby="ingresarDiagnosticoModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ingresarDiagnosticoModalLabel">Ingresar Diagnostico</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="ingresarDiagnosticoForm">
+						<div class="mb-3">
+							<label for="diagnosticoPaciente" class="form-label">Seleccionar Paciente</label>
+							<select class="form-select" id="diagnosticoPaciente" required>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="diagnostico" class="form-label">Diagnóstico</label>
+							<textarea class="form-control" id="diagnostico" required></textarea>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modificarDiagnosticoModal" tabindex="-1"
+		aria-labelledby="modificarDiagnosticoModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modificarDiagnosticoModalLabel">Modificar Diagnóstico</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="modifyDiagnosticoForm">
+						<div class="mb-3">
+							<label for="selectDiagnosticoModificar" class="form-label">Seleccionar Paciente</label>
+							<select class="form-select" id="selectDiagnosticoModificar" required>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="diagnosticoTextoModificar" class="form-label">Diagnóstico</label>
+							<textarea class="form-control" id="diagnosticoTextoModificar" required></textarea>
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">Modificar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="eliminarDiagnosticoModal" tabindex="-1" aria-labelledby="eliminarDiagnosticoModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="eliminarDiagnosticoModalLabel">Eliminar Diagnóstico</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul id="listaDiagnosticosEliminar" class="list-group">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function showSection(sectionId) {
+			document
+				.querySelectorAll(".section")
+				.forEach((section) => section.classList.add("d-none"));
+			document.getElementById(sectionId).classList.remove("d-none");
+		}
+
+
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="scripts/medico.js"></script>
+</body>
+
+</html>

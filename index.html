@@ -1,181 +1,129 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Receta Vital - Inicio de Sesión</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-		/>
-		<link href="styles/style.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="container">
-			<h1 class="text-center my-5">Receta Vital</h1>
-            <div class="text-center my-5">
-			<img src="img/logorecetavital.png" width="200"></img>
-            </div>
-			<div class="row justify-content-center">
-				<div class="col-md-6">
-					<div class="card">
-						<div class="card-header text-center">
-							<h2>Iniciar Sesión</h2>
-						</div>
-						<div class="card-body">
-							<form id="loginForm">
-								<div class="mb-3">
-									<label for="email" class="form-label"
-										>Correo electrónico</label
-									>
-									<input
-										type="email"
-										class="form-control"
-										id="email"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="password" class="form-label">Contraseña</label>
-									<input
-										type="password"
-										class="form-control"
-										id="password"
-										required
-									/>
-								</div>
-								<div class="mb-3">
-									<label for="role" class="form-label">Rol</label>
-									<select class="form-select" id="role" required>
-										<option value="admin">Administrador</option>
-										<option value="doctor">Médico</option>
-										<option value="patient">Paciente</option>
-									</select>
-								</div>
-								<div class="d-grid">
-									<button type="submit" class="btn btn-primary">
-										Iniciar Sesión
-									</button>
-								</div>
-							</form>
-							<div class="text-center mt-3">
-								<button class="btn btn-link" id="registerBtn">
-									Registrarse (Pacientes)
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<div
-			class="modal fade"
-			id="registerModal"
-			tabindex="-1"
-			aria-labelledby="registerModalLabel"
-			aria-hidden="true"
-		>
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="registerModalLabel">
-							Registro de Pacientes
-						</h5>
-						<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-						></button>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Receta Vital - Inicio de Sesión</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="styles/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<h1 class="text-center my-5">Receta Vital</h1>
+		<div class="text-center my-5">
+			<img src="img/logorecetavital.png" width="200"></img>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header text-center">
+						<h2>Iniciar Sesión</h2>
 					</div>
-					<div class="modal-body">
-						<form id="registerForm">
+					<div class="card-body">
+						<form id="loginForm">
 							<div class="mb-3">
-								<label for="registerRUT" class="form-label">RUT</label>
-								<input
-									type="text"
-									class="form-control"
-									id="registerRUT"
-									required
-								/>
+								<label for="email" class="form-label">Correo electrónico</label>
+								<input type="email" class="form-control" id="email" required />
 							</div>
 							<div class="mb-3">
-								<label for="registerName" class="form-label">Nombre</label>
-								<input
-									type="text"
-									class="form-control"
-									id="registerName"
-									required
-								/>
+								<label for="password" class="form-label">Contraseña</label>
+								<input type="password" class="form-control" id="password" required />
 							</div>
 							<div class="mb-3">
-								<label for="registerSurname" class="form-label">Apellido</label>
-								<input
-									type="text"
-									class="form-control"
-									id="registerSurname"
-									required
-								/>
-							</div>
-							<div class="mb-3">
-								<label for="registerEmail" class="form-label"
-									>Correo electrónico</label
-								>
-								<input
-									type="email"
-									class="form-control"
-									id="registerEmail"
-									required
-								/>
-							</div>
-							<div class="mb-3">
-								<label for="registerPassword" class="form-label"
-									>Contraseña</label
-								>
-								<input
-									type="password"
-									class="form-control"
-									id="registerPassword"
-									required
-								/>
+								<label for="role" class="form-label">Rol</label>
+								<select class="form-select" id="role" required>
+									<option value="admin">Administrador</option>
+									<option value="medico">Médico</option>
+									<option value="paciente">Paciente</option>
+								</select>
 							</div>
 							<div class="d-grid">
 								<button type="submit" class="btn btn-primary">
-									Registrarse
+									Iniciar Sesión
 								</button>
 							</div>
 						</form>
+						<div class="text-center mt-3">
+							<button class="btn btn-link" id="registerBtn">
+								Registrarse (Pacientes)
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<script>
-			document.getElementById("registerBtn").addEventListener("click", () => {
-				new bootstrap.Modal(document.getElementById("registerModal")).show();
-			});
+	<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="registerModalLabel">
+						Registro de Pacientes
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="registerForm">
+						<div class="mb-3">
+							<label for="registerRUT" class="form-label">RUT</label>
+							<input type="text" class="form-control" id="registerRUT" required />
+						</div>
+						<div class="mb-3">
+							<label for="registerName" class="form-label">Nombre</label>
+							<input type="text" class="form-control" id="registerName" required />
+						</div>
+						<div class="mb-3">
+							<label for="registerSurname" class="form-label">Apellido</label>
+							<input type="text" class="form-control" id="registerSurname" required />
+						</div>
+						<div class="mb-3">
+							<label for="registerEmail" class="form-label">Correo electrónico</label>
+							<input type="email" class="form-control" id="registerEmail" required />
+						</div>
+						<div class="mb-3">
+							<label for="registerPassword" class="form-label">Contraseña</label>
+							<input type="password" class="form-control" id="registerPassword" required />
+						</div>
+						<div class="d-grid">
+							<button type="submit" class="btn btn-primary">
+								Registrarse
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-			document.getElementById("loginForm").addEventListener("submit", (e) => {
+	<script>
+		document.getElementById("registerBtn").addEventListener("click", () => {
+			new bootstrap.Modal(document.getElementById("registerModal")).show();
+		});
+
+		document.getElementById("loginForm").addEventListener("submit", (e) => {
+			e.preventDefault();
+			const role = document.getElementById("role").value;
+			if (role === "admin") {
+				window.location.href = "admin.html";
+			} else if (role === "medico") {
+				window.location.href = "medico.html";
+			} else if (role === "paciente") {
+				window.location.href = "paciente.html";
+			}
+		});
+
+		document
+			.getElementById("registerForm")
+			.addEventListener("submit", (e) => {
 				e.preventDefault();
-				const role = document.getElementById("role").value;
-				if (role === "admin") {
-					window.location.href = "admin.html";
-				} else if (role === "doctor") {
-					window.location.href = "doctor.html";
-				} else if (role === "patient") {
-					window.location.href = "patient.html";
-				}
+				alert("Paciente registrado correctamente");
+				new bootstrap.Modal(document.getElementById("registerModal")).hide();
 			});
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
-			document
-				.getElementById("registerForm")
-				.addEventListener("submit", (e) => {
-					e.preventDefault();
-					alert("Paciente registrado correctamente");
-					new bootstrap.Modal(document.getElementById("registerModal")).hide();
-				});
-		</script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	</body>
 </html>

@@ -1,391 +1,378 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Administrador - Receta Vital</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-		/>
-		<link href="styles/style.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="container">
-            <div class="text-left my-3">
-                <img src="img/logorecetavital.png" width="130"></img>
-				<a href="index.html" class="btn btn-danger float-end" role="button">Cerrar Sesión</a>
-				<h4 class="float-end px-3">¡Hola Administrador!</h4>
-                </div>
-			<!--<h1 class="my-5">Administrador</h1>-->
-			<div class="row">
-				<div class="col-md-4">
-					<button
-						class="btn btn-primary w-100 mb-3"
-						data-bs-toggle="collapse"
-						data-bs-target="#medicosMenu"
-					>
-						Médicos
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Administrador - Receta Vital</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="styles/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="col-md-12 text-left my-3">
+			<img src="img/logorecetavital.png" width="130"></img>
+			<a href="index.html" class="btn btn-danger float-end" role="button">Cerrar Sesión</a>
+			<h4 class="float-end px-3">¡Hola Administrador!</h4>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse" data-bs-target="#medicosMenu">
+					MÉDICOS
+				</button>
+				<div id="medicosMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#addMedicoModal">
+						Agregar Médico
 					</button>
-					<div id="medicosMenu" class="collapse">
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('addMedico')"
-						>
-							Agregar Médico
-						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('modifyMedico')"
-						>
-							Modificar Médico
-						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('listMedico')"
-						>
-							Listar Médicos
-						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('deleteMedico')"
-						>
-							Eliminar Médico
-						</button>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<button
-						class="btn btn-primary w-100 mb-3"
-						data-bs-toggle="collapse"
-						data-bs-target="#medicamentosMenu"
-					>
-						Medicamentos
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#modifyMedicoModal">
+						Modificar Médico
 					</button>
-					<div id="medicamentosMenu" class="collapse">
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('addMedicamento')"
-						>
-							Ingresar Medicamento
-						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('modifyMedicamento')"
-						>
-							Modificar Medicamento
-						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('listMedicamento')"
-						>
-							Listar Medicamentos
-						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('deleteMedicamento')"
-						>
-							Eliminar Medicamento
-						</button>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<button
-						class="btn btn-primary w-100 mb-3"
-						data-bs-toggle="collapse"
-						data-bs-target="#usuariosMenu"
-					>
-						Usuarios
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#deleteMedicoModal">
+						Eliminar Médico
 					</button>
-					<div id="usuariosMenu" class="collapse">
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('addUsuario')"
-						>
-							Ingresar Usuario
-						</button>
-						<button
-							class="btn btn-secondary w-100 mb-2"
-							onclick="showSection('deleteUsuario')"
-						>
-							Eliminar Usuario
-						</button>
-					</div>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#listMedicosModal">
+						Listar Médicos
+					</button>
 				</div>
 			</div>
-			<div class="mt-5">
-				<div id="addMedico" class="section d-none">
-					<h2>Agregar Médico</h2>
-					<form id="addMedicoForm">
-						<div class="mb-3">
-							<label for="medicoRUT" class="form-label">RUT</label>
-							<input type="text" class="form-control" id="medicoRUT" required />
-						</div>
-						<div class="mb-3">
-							<label for="medicoNombre" class="form-label">Nombre</label>
-							<input
-								type="text"
-								class="form-control"
-								id="medicoNombre"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicoApellido" class="form-label">Apellido</label>
-							<input
-								type="text"
-								class="form-control"
-								id="medicoApellido"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicoTelefono" class="form-label">Teléfono</label>
-							<input
-								type="text"
-								class="form-control"
-								id="medicoTelefono"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicoFechaNacimiento" class="form-label"
-								>Fecha de nacimiento</label
-							>
-							<input
-								type="date"
-								class="form-control"
-								id="medicoFechaNacimiento"
-								required
-							/>
-						</div>
-						<div class="d-grid">
-							<button type="submit" class="btn btn-primary">Guardar</button>
-						</div>
-					</form>
+
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse" data-bs-target="#medicamentosMenu">
+					MEDICAMENTOS
+				</button>
+				<div id="medicamentosMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#addMedicamentoModal">
+						Ingresar Medicamento
+					</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#modifyMedicamentoModal">
+						Modificar Medicamento
+					</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#deleteMedicamentoModal">
+						Eliminar Medicamento
+					</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#listMedicamentosModal">
+						Listar Medicamentos
+					</button>
 				</div>
-				<div id="modifyMedico" class="section d-none">
-					<h2>Modificar Médico</h2>
-					<form id="modifyMedicoForm">
-						<div class="mb-3">
-							<label for="selectMedicoModificar" class="form-label"
-								>Seleccionar Médico</label
-							>
-							<select class="form-select" id="selectMedicoModificar" required>
-								<!-- Lista de médicos para seleccionar -->
-							</select>
-						</div>
-						<div class="mb-3">
-							<label for="medicoRUTModificar" class="form-label">RUT</label>
-							<input
-								type="text"
-								class="form-control"
-								id="medicoRUTModificar"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicoNombreModificar" class="form-label"
-								>Nombre</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="medicoNombreModificar"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicoApellidoModificar" class="form-label"
-								>Apellido</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="medicoApellidoModificar"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicoTelefonoModificar" class="form-label"
-								>Teléfono</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="medicoTelefonoModificar"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicoFechaNacimientoModificar" class="form-label"
-								>Fecha de nacimiento</label
-							>
-							<input
-								type="date"
-								class="form-control"
-								id="medicoFechaNacimientoModificar"
-								required
-							/>
-						</div>
-						<div class="d-grid">
-							<button type="submit" class="btn btn-primary">Modificar</button>
-						</div>
-					</form>
-				</div>
-				<div id="listMedico" class="section d-none">
-					<h2>Listar Médicos</h2>
-					<ul id="listaMedicos" class="list-group">
-						<!-- Lista de médicos -->
-					</ul>
-				</div>
-				<div id="deleteMedico" class="section d-none">
-					<h2>Eliminar Médico</h2>
-					<ul id="listaMedicosEliminar" class="list-group">
-						<!-- Lista de médicos con botón de eliminar -->
-					</ul>
-				</div>
-				<div id="addMedicamento" class="section d-none">
-					<h2>Ingresar Medicamento</h2>
-					<form id="addMedicamentoForm">
-						<div class="mb-3">
-							<label for="medicamentoNombre" class="form-label">Nombre</label>
-							<input
-								type="text"
-								class="form-control"
-								id="medicamentoNombre"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicamentoDosis" class="form-label">Dosis</label>
-							<input
-								type="text"
-								class="form-control"
-								id="medicamentoDosis"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicamentoDetalles" class="form-label"
-								>Detalles</label
-							>
-							<textarea
-								class="form-control"
-								id="medicamentoDetalles"
-								required
-							></textarea>
-						</div>
-						<div class="d-grid">
-							<button type="submit" class="btn btn-primary">Guardar</button>
-						</div>
-					</form>
-				</div>
-				<div id="modifyMedicamento" class="section d-none">
-					<h2>Modificar Medicamento</h2>
-					<form id="modifyMedicamentoForm">
-						<div class="mb-3">
-							<label for="selectMedicamentoModificar" class="form-label"
-								>Seleccionar Medicamento</label
-							>
-							<select
-								class="form-select"
-								id="selectMedicamentoModificar"
-								required
-							>
-								<!-- Lista de medicamentos para seleccionar -->
-							</select>
-						</div>
-						<div class="mb-3">
-							<label for="medicamentoNombreModificar" class="form-label"
-								>Nombre</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="medicamentoNombreModificar"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicamentoDosisModificar" class="form-label"
-								>Dosis</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="medicamentoDosisModificar"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="medicamentoDetallesModificar" class="form-label"
-								>Detalles</label
-							>
-							<textarea
-								class="form-control"
-								id="medicamentoDetallesModificar"
-								required
-							></textarea>
-						</div>
-						<div class="d-grid">
-							<button type="submit" class="btn btn-primary">Modificar</button>
-						</div>
-					</form>
-				</div>
-				<div id="listMedicamento" class="section d-none">
-					<h2>Listar Medicamentos</h2>
-					<ul id="listaMedicamentos" class="list-group">
-						<!-- Lista de medicamentos -->
-					</ul>
-				</div>
-				<div id="deleteMedicamento" class="section d-none">
-					<h2>Eliminar Medicamento</h2>
-					<ul id="listaMedicamentosEliminar" class="list-group">
-						<!-- Lista de medicamentos con botón de eliminar -->
-					</ul>
-				</div>
-				<div id="addUsuario" class="section d-none">
-					<h2>Ingresar Usuario</h2>
-					<form id="addUsuarioForm">
-						<div class="mb-3">
-							<label for="usuarioEmail" class="form-label">Correo</label>
-							<input
-								type="email"
-								class="form-control"
-								id="usuarioEmail"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="usuarioPassword" class="form-label">Contraseña</label>
-							<input
-								type="password"
-								class="form-control"
-								id="usuarioPassword"
-								required
-							/>
-						</div>
-						<div class="mb-3">
-							<label for="usuarioRol" class="form-label">Rol</label>
-							<select class="form-select" id="usuarioRol" required>
-								<option value="admin">Administrador</option>
-								<option value="doctor">Médico</option>
-							</select>
-						</div>
-						<div class="d-grid">
-							<button type="submit" class="btn btn-primary">Guardar</button>
-						</div>
-					</form>
-				</div>
-				<div id="deleteUsuario" class="section d-none">
-					<h2>Eliminar Usuario</h2>
-					<ul id="listaUsuariosEliminar" class="list-group">
-						<!-- Lista de usuarios con botón de eliminar -->
-					</ul>
+			</div>
+
+			<div class="col-md-4">
+				<button class="btn btn-primary w-100 mb-3" data-bs-toggle="collapse" data-bs-target="#usuariosMenu">
+					USUARIOS
+				</button>
+				<div id="usuariosMenu" class="collapse">
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#addUsuarioModal">
+						Ingresar Usuario
+					</button>
+					<button class="btn btn-secondary w-100 mb-2" data-bs-toggle="modal"
+						data-bs-target="#deleteUsuarioModal">
+						Eliminar Usuario
+					</button>
 				</div>
 			</div>
 		</div>
+
+		<div class="modal fade" id="addMedicoModal" tabindex="-1" aria-labelledby="addMedicoModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addMedicoModalLabel">Ingresar Médico</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="addMedicoForm">
+							<div class="mb-3">
+								<label for="medicoRUT" class="form-label">RUT</label>
+								<input type="text" class="form-control" id="medicoRUT" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoNombre" class="form-label">Nombre</label>
+								<input type="text" class="form-control" id="medicoNombre" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoApellido" class="form-label">Apellido</label>
+								<input type="text" class="form-control" id="medicoApellido" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoTelefono" class="form-label">Teléfono</label>
+								<input type="text" class="form-control" id="medicoTelefono" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoFechaNacimiento" class="form-label">Fecha de nacimiento</label>
+								<input type="date" class="form-control" id="medicoFechaNacimiento" required />
+							</div>
+							<div class="d-grid">
+								<button type="submit" class="btn btn-primary">Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modifyMedicoModal" tabindex="-1" aria-labelledby="modifyMedicoModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modifyMedicoModalLabel">
+							Modificar Médico
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="modifyMedicoForm">
+							<div class="mb-3">
+								<label for="selectMedicoModificar" class="form-label">Seleccionar Médico</label>
+								<select class="form-select" id="selectMedicoModificar" required>
+									<!-- Lista de médicos para seleccionar -->
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="medicoRUTModificar" class="form-label">RUT</label>
+								<input type="text" class="form-control" id="medicoRUTModificar" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoNombreModificar" class="form-label">Nombre</label>
+								<input type="text" class="form-control" id="medicoNombreModificar" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoApellidoModificar" class="form-label">Apellido</label>
+								<input type="text" class="form-control" id="medicoApellidoModificar" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoTelefonoModificar" class="form-label">Teléfono</label>
+								<input type="text" class="form-control" id="medicoTelefonoModificar" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicoFechaNacimientoModificar" class="form-label">Fecha de
+									nacimiento</label>
+								<input type="date" class="form-control" id="medicoFechaNacimientoModificar" required />
+							</div>
+							<div class="d-grid">
+								<button type="submit" class="btn btn-primary">Modificar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="listMedicosModal" tabindex="-1" aria-labelledby="listMedicosModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="listMedicosModalLabel">
+							Listar Médicos
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<ul id="listaMedicos" class="list-group">
+							<!-- Lista de médicos -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="deleteMedicoModal" tabindex="-1" aria-labelledby="deleteMedicoModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteMedicoModalLabel">
+							Eliminar Médico
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<ul id="listaMedicosEliminar" class="list-group">
+							<!-- Lista de médicos con botón de eliminar -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="addMedicamentoModal" tabindex="-1" aria-labelledby="addMedicamentoModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addMedicamentoModalLabel">
+							Ingresar Medicamento
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="addMedicamentoForm">
+							<div class="mb-3">
+								<label for="medicamentoNombre" class="form-label">Nombre</label>
+								<input type="text" class="form-control" id="medicamentoNombre" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicamentoDosis" class="form-label">Dosis</label>
+								<input type="text" class="form-control" id="medicamentoDosis" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicamentoDetalles" class="form-label">Detalles</label>
+								<textarea class="form-control" id="medicamentoDetalles" required></textarea>
+							</div>
+							<div class="d-grid">
+								<button type="submit" class="btn btn-primary">Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modifyMedicamentoModal" tabindex="-1" aria-labelledby="modifyMedicamentoModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modifyMedicamentoModalLabel">
+							Modificar Medicamento
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="modifyMedicamentoForm">
+							<div class="mb-3">
+								<label for="selectMedicamentoModificar" class="form-label">Seleccionar
+									Medicamento</label>
+								<select class="form-select" id="selectMedicamentoModificar" required>
+									<!-- Lista de medicamentos para seleccionar -->
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="medicamentoNombreModificar" class="form-label">Nombre</label>
+								<input type="text" class="form-control" id="medicamentoNombreModificar" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicamentoDosisModificar" class="form-label">Dosis</label>
+								<input type="text" class="form-control" id="medicamentoDosisModificar" required />
+							</div>
+							<div class="mb-3">
+								<label for="medicamentoDetallesModificar" class="form-label">Detalles</label>
+								<textarea class="form-control" id="medicamentoDetallesModificar" required></textarea>
+							</div>
+							<div class="d-grid">
+								<button type="submit" class="btn btn-primary">Modificar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="deleteMedicamentoModal" tabindex="-1" aria-labelledby="deleteMedicamentoModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteMedicamentoModalLabel">
+							Eliminar Medicamento
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<ul id="listaMedicamentosEliminar" class="list-group">
+							<!-- Lista de medicamentos con botón de eliminar -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="listMedicamentosModal" tabindex="-1" aria-labelledby="listMedicamentosModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="listMedicamentosModalLabel">
+							Listar Medicamentos
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<ul id="listaMedicamentos" class="list-group">
+							<!-- Lista de medicamentos -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="addUsuarioModal" tabindex="-1" aria-labelledby="addUsuarioModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="addUsuarioModalLabel">
+							Añadir Usuario
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="addUsuarioForm">
+							<div class="mb-3">
+								<label for="usuarioEmail" class="form-label">Correo</label>
+								<input type="email" class="form-control" id="usuarioEmail" required />
+							</div>
+							<div class="mb-3">
+								<label for="usuarioPassword" class="form-label">Contraseña</label>
+								<input type="password" class="form-control" id="usuarioPassword" required />
+							</div>
+							<div class="mb-3">
+								<label for="usuarioRol" class="form-label">Rol</label>
+								<select class="form-select" id="usuarioRol" required>
+									<option value="administrador">Administrador</option>
+									<option value="medico">Médico</option>
+								</select>
+							</div>
+							<div class="d-grid">
+								<button type="submit" class="btn btn-primary">Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="deleteUsuarioModal" tabindex="-1" aria-labelledby="deleteUsuarioModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="deleteUsuarioModalLabel">
+							Eliminar Usuario
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<ul id="listaUsuariosEliminar" class="list-group">
+							<!-- Lista de usuarios con botón de eliminar -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script>
 			function showSection(sectionId) {
 				document
@@ -396,5 +383,6 @@
 		</script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="scripts/admin.js"></script>
-	</body>
+</body>
+
 </html>

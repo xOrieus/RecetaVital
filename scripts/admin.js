@@ -1,4 +1,3 @@
-// Funciones auxiliares para manejar el almacenamiento local
 function guardarEnLocalStorage(clave, valor) {
 	localStorage.setItem(clave, JSON.stringify(valor));
 }
@@ -23,7 +22,74 @@ function generarId() {
 	return "_" + Math.random().toString(36).substr(2, 9);
 }
 
-// Funciones CRUD para Médicos
+function inicializarDatosPorDefecto() {
+	if (!localStorage.getItem("medicos")) {
+		const medicos = [
+			{
+				id: generarId(),
+				rut: "12345678-9",
+				nombre: "Juan",
+				apellido: "Pérez",
+				telefono: "123456789",
+				ciudad: "Santiago",
+				fechaNacimiento: "1980-01-01",
+			},
+			{
+				id: generarId(),
+				rut: "98765432-1",
+				nombre: "María",
+				apellido: "González",
+				telefono: "987654321",
+				ciudad: "Valparaíso",
+				fechaNacimiento: "1985-05-15",
+			},
+		];
+		guardarEnLocalStorage("medicos", medicos);
+	}
+
+	if (!localStorage.getItem("medicamentos")) {
+		const medicamentos = [
+			{
+				id: generarId(),
+				nombre: "Paracetamol",
+				dosis: "500mg",
+				detalles: "Tomar cada 8 horas",
+			},
+			{
+				id: generarId(),
+				nombre: "Ibuprofeno",
+				dosis: "200mg",
+				detalles: "Tomar cada 6 horas",
+			},
+		];
+		guardarEnLocalStorage("medicamentos", medicamentos);
+	}
+
+	if (!localStorage.getItem("usuarios")) {
+		const usuarios = [
+			{
+				id: generarId(),
+				email: "admin@clinica.com",
+				password: "admin123",
+				rol: "admin",
+			},
+			{
+				id: generarId(),
+				email: "medico@clinica.com",
+				password: "medico123",
+				rol: "medico",
+			},
+			{
+				id: generarId(),
+				email: "paciente@clinica.com",
+				password: "paciente123",
+				rol: "paciente",
+			},
+		];
+		guardarEnLocalStorage("usuarios", usuarios);
+	}
+}
+
 document
 	.getElementById("addMedicoForm")
 	.addEventListener("submit", function (e) {
@@ -41,6 +107,9 @@ document
 		medicos.push(medico);
 		guardarEnLocalStorage("medicos", medicos);
 		alert("Médico añadido correctamente");
+		listarMedicosEliminar();
+		listarMedicos();
+		actualizarSelectsMedicos();
 	});
 
 document
@@ -67,6 +136,9 @@ document
 			medicos[indice] = medico;
 			guardarEnLocalStorage("medicos", medicos);
 			alert("Médico modificado correctamente");
+			listarMedicosEliminar();
+			listarMedicos();
+			actualizarSelectsMedicos();
 		} else {
 			alert("Error: Médico no encontrado");
 		}
@@ -104,30 +176,39 @@ function listarMedicosEliminar() {
 			eliminarDeLocalStorage("medicos", medico.id);
 			alert("Médico eliminado correctamente");
 			listarMedicosEliminar();
+			listarMedicos();
+			actualizarSelectsMedicos();
 		});
 		item.appendChild(botonEliminar);
 		lista.appendChild(item);
 	});
 }
 
-// Inicialización de listas y formularios
-document.addEventListener("DOMContentLoaded", function () {
-	listarMedicos();
-	listarMedicosEliminar();
+function actualizarSelectsMedicos() {
 	const medicos = obtenerDeLocalStorage("medicos");
 	const selectMedicoModificar = document.getElementById(
 		"selectMedicoModificar"
 	);
-	medicos.forEach((medico) => {
-		const option = document.createElement("option");
-		option.value = medico.id;
-		option.textContent = `${medico.nombre} ${medico.apellido}`;
-		selectMedicoModificar.appendChild(option);
+	const citaMedico = document.getElementById("citaMedico");
+
+	[selectMedicoModificar, citaMedico].forEach((select) => {
+		select.innerHTML = "";
+		medicos.forEach((medico) => {
+			const option = document.createElement("option");
+			option.value = medico.id;
+			option.textContent = `${medico.nombre} ${medico.apellido}`;
+			select.appendChild(option);
+		});
 	});
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+	inicializarDatosPorDefecto();
+	listarMedicos();
+	listarMedicosEliminar();
+	actualizarSelectsMedicos();
 });
 
-// Repetir para Medicamentos y Usuarios
-// Funciones CRUD para Medicamentos
 document
 	.getElementById("addMedicamentoForm")
 	.addEventListener("submit", function (e) {
@@ -144,7 +225,7 @@ document
 		alert("Medicamento añadido correctamente");
 		listarMedicamentos();
 		listarMedicamentosEliminar();
-		listarMedicamentosModificar();
+		actualizarSelectsMedicamentos();
 	});
 
 document
@@ -170,7 +251,7 @@ document
 			alert("Medicamento modificado correctamente");
 			listarMedicamentos();
 			listarMedicamentosEliminar();
-			listarMedicamentosModificar();
+			actualizarSelectsMedicamentos();
 		} else {
 			alert("Error: Medicamento no encontrado");
 		}
@@ -208,32 +289,38 @@ function listarMedicamentosEliminar() {
 			eliminarDeLocalStorage("medicamentos", medicamento.id);
 			alert("Medicamento eliminado correctamente");
 			listarMedicamentosEliminar();
+			listarMedicamentos();
+			actualizarSelectsMedicamentos();
 		});
 		item.appendChild(botonEliminar);
 		lista.appendChild(item);
 	});
 }
 
-function listarMedicamentosModificar() {
+function actualizarSelectsMedicamentos() {
 	const medicamentos = obtenerDeLocalStorage("medicamentos");
-	const select = document.getElementById("selectMedicamentoModificar");
-	select.innerHTML = "";
-	medicamentos.forEach((medicamento) => {
-		const option = document.createElement("option");
-		option.value = medicamento.id;
-		option.textContent = `${medicamento.nombre}`;
-		select.appendChild(option);
+	const selectMedicamentoModificar = document.getElementById(
+		"selectMedicamentoModificar"
+	);
+	const tratamientoReceta = document.getElementById("tratamientoReceta");
+
+	[selectMedicamentoModificar, tratamientoReceta].forEach((select) => {
+		select.innerHTML = "";
+		medicamentos.forEach((medicamento) => {
+			const option = document.createElement("option");
+			option.value = medicamento.id;
+			option.textContent = `${medicamento.nombre} - ${medicamento.dosis}`;
+			select.appendChild(option);
+		});
 	});
 }
 
-// Inicialización de listas y formularios
 document.addEventListener("DOMContentLoaded", function () {
 	listarMedicamentos();
 	listarMedicamentosEliminar();
-	listarMedicamentosModificar();
+	actualizarSelectsMedicamentos();
 });
 
-// Funciones CRUD para Usuarios
 document
 	.getElementById("addUsuarioForm")
 	.addEventListener("submit", function (e) {
@@ -277,7 +364,6 @@ function listarUsuariosEliminar() {
 	});
 }
 
-// Inicialización de listas y formularios
 document.addEventListener("DOMContentLoaded", function () {
 	listarUsuariosEliminar();
 });
